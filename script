@@ -1,0 +1,181 @@
+% script that uses the function SPECS_1D 
+length_channel = 1000; % unit: um; default, not used for expo gradient!
+                   %because right now I want to analyze only initial behavior
+dx = 0.001;    
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+Cmax=logspace(-3,5,30);
+
+
+for i=1:N
+   Cmax=logspace(-3,5,30); 
+initial=Cmax(i)/2; %conc initial
+numcell=100; %number of cells
+Cr=Cmax(i); 
+SPECS_1D(0,Cr,initial,210,numcell,0.5)
+end
+
+%%
+clear all 
+close all
+Cmax=logspace(-3,5,30);
+CMC100=zeros(30,1);
+CMC200=zeros(30,1);
+for i=1:30
+        if (~exist(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka3000.mat'))==0)
+         
+
+   h=strcat(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka3000.mat'));
+   
+        
+load(h);
+        end
+b=cell_distributions_all(:,end);
+length_channel = 1000;                  
+dx = 0.001;   
+
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+numcell=100;
+b1=b/(numcell*dx); %in this way the integral is 1. it divides the number of cells in the mesh to have the distribution. it is B(x)
+ int=trapz(x,b1'); % integral of B(x) must be 1
+ CMC100(i)=(trapz(x,x.*b1')-500)/500;
+ b2=allmeans(:,end);
+%b2=mean(save_x(:,end)'); same that above
+  CMC200(i)=(b2-500)/500;
+  
+end
+        
+figure(1)
+semilogx((Cmax*0.5),CMC100)
+
+%%
+length_channel = 1000; % unit: um; default, not used for expo gradient!
+                   %because right now I want to analyze only initial behavior
+dx = 0.001;    
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+Cmax=logspace(-3,5,30);
+
+
+parfor i=1:30
+   Cmax=logspace(-3,5,30); 
+initial=x*Cmax(i)/2; %conc initial
+numcell=100; %number of cells
+Cr=Cmax(i); 
+SPECS_1D(0,Cr,initial,210,numcell,0.5)
+end
+
+%%
+
+CMC3=zeros(30,1);
+CMC4=zeros(30,1);
+for i=1:30
+        if (~exist(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka2000.mat'))==0)
+         
+
+   h=strcat(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka2000.mat'));
+   
+        
+load(h);
+        end
+b=cell_distributions_all(:,end);
+length_channel = 1000;                  
+dx = 0.001;   
+
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+numcell=100;
+b1=b/(numcell*dx); %in this way the integral is 1. it divides the number of cells in the mesh to have the distribution. it is B(x)
+ int=trapz(x,b1'); % integral of B(x) must be 1
+ CMC3(i)=(trapz(x,x.*b1')-500)/500;
+ b2=allmeans(:,end);
+%b2=mean(save_x(:,end)'); same that above
+  CMC4(i)=(b2-500)/500;
+  
+end
+        
+hold on
+semilogx((Cmax*0.5),CMC3,'g')
+%%
+%%
+length_channel = 1000; % unit: um; default, not used for expo gradient!
+                   %because right now I want to analyze only initial behavior
+dx = 0.001;    
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+Cmax=logspace(-3,5,30);
+
+
+parfor i=1:30
+   Cmax=logspace(-3,5,30); 
+initial=x*Cmax(i)/2; %conc initial
+numcell=100; %number of cells
+Cr=Cmax(i); 
+SPECS_1D(0,Cr,initial,210,numcell,0.5)
+end
+%%
+
+CMC5=zeros(30,1);
+CMC6=zeros(30,1);
+for i=1:30
+        if (~exist(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka4000.mat'))==0)
+         
+
+   h=strcat(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka4000.mat'));
+   
+        
+load(h);
+        end
+b=cell_distributions_all(:,end);
+length_channel = 1000;                  
+dx = 0.001;   
+
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+numcell=100;
+b1=b/(numcell*dx); %in this way the integral is 1. it divides the number of cells in the mesh to have the distribution. it is B(x)
+ int=trapz(x,b1'); % integral of B(x) must be 1
+ CMC5(i)=(trapz(x,x.*b1')-500)/500;
+ b2=allmeans(:,end);
+%b2=mean(save_x(:,end)'); same that above
+  CMC6(i)=(b2-500)/500;
+  
+end
+        
+hold on
+semilogx((Cmax*0.5),CMC5,'r')
+title('Ki*Ka=500')
+%%
+%%
+
+CMC7=zeros(30,1);
+CMC8=zeros(30,1);
+for i=1:30
+        if (~exist(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka30000.mat'))==0)
+         
+
+   h=strcat(strcat('specs_saved_0_',num2str(Cmax(i)),'_Ka30000.mat'));
+   
+        
+load(h);
+        end
+b=cell_distributions_all(:,end);
+length_channel = 1000;                  
+dx = 0.001;   
+
+n=length_channel/dx;
+x=linspace(0,length_channel,n);
+numcell=100;
+b1=b/(numcell*dx); %in this way the integral is 1. it divides the number of cells in the mesh to have the distribution. it is B(x)
+ int=trapz(x,b1'); % integral of B(x) must be 1
+ CMC7(i)=(trapz(x,x.*b1')-500)/500;
+ b2=allmeans(:,end);
+%b2=mean(save_x(:,end)'); same that above
+  CMC8(i)=(b2-500)/500;
+  
+end
+        
+hold on
+semilogx((Cmax*0.5),CMC7)
+title('Ki*Ka=500')
